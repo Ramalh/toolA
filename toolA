@@ -1,0 +1,94 @@
+#! /usr/bin/env python3
+from bio_class import *
+import argparse
+
+ap1 = argparse.ArgumentParser(description="ToolA")
+
+group1 = ap1.add_mutually_exclusive_group()
+group1.add_argument('-r', '--rvrs_transcript', action='store_true', help= "DNA sequence of the given RNA sequence")
+group1.add_argument('-rn', '--random_seq', nargs=2, metavar="", help= "Generate random sequence with given biomolecule type{DNA or RNA} and length{integer}")
+group1.add_argument('-rc', '--rvrs_complement', action='store_true', help= "Reverse complementary sequence of the given sequence")
+group1.add_argument('-tr', '--transcript', action= "store_true", help="RNA sequence of the given DNA sequence")
+
+group2 = ap1.add_mutually_exclusive_group()
+group2.add_argument('-u', '--nuc_freq', metavar= '', nargs= '?', const= False, choices=["freq"], help="Number of each nucleotide or "
+                                                                    "frequencies of each nucleotide is input is [freq]")
+
+group2.add_argument('-in', '--info', action= "store_true", help= "Brief info about given sequence")
+group2.add_argument('-c', '--colorize', action= "store_true", help="Colorize the given DNA or RNA sequence")
+group2.add_argument('-gc', '--GC_content', action= 'store_true', help= "GC content of the given sequence")
+group2.add_argument('-gcs', '--GC_content_sub', metavar="", nargs= 1, type= int, help= "GC content of k-mers of the given sequence")
+group2.add_argument('-tl', '--translate', metavar="", nargs= '?', type= int, const=0, help= "Translation of given DNA or RNA sequence")
+group2.add_argument('-f', '--codon_frequency', metavar="", nargs= 1, type= str, help= "Codon frequencies of the given amino acid letter")
+group2.add_argument('-or', '--ORF', action= 'store_true', help= "Open Reading Frame of given RNA or DNA sequence")
+
+ap1.add_argument('-o', '--output',metavar= "", nargs=1, type = str, help= "Name of output file of the result")
+
+ap1.add_argument('-i', '--input', required=True, metavar= "", nargs=1, type = str, help= "Name of input file of the result")
+
+ap1.add_argument('-t', '--biomol_type',metavar= "", nargs=1, type = str, choices=["DNA", "RNA"], help= "Molecule type of input sequence [DNA or RNA]")
+
+args1 = ap1.parse_args()
+
+def main():
+    object1 = bio_materials(func(args1.input[0]),
+                        data_type=args1.biomol_type[0])
+    if args1.transcript:
+        object1.transcription()
+    if args1.rvrs_transcript:
+        object1.reverse_transcription()
+    if args1.random_seq != None:
+        object1.generate_rnd_seq(args1.random_seq[0], int(args1.random_seq[1]))
+    if args1.rvrs_complement:
+        object1.reverse_complementary()
+    x = object1
+    y = object1
+    if args1.nuc_freq != None:
+        x = object1.nuc_numbers(freq= bool(args1.nuc_freq))
+    if args1.colorize:
+        x = object1.colorize()
+    if args1.info:
+        x = object1.info()
+    if args1.GC_content:
+        x = object1.GC_content()
+    if args1.GC_content_sub != None:
+        x = object1.GC_content_sub(args1.GC_content_sub)
+    if args1.translate != None:
+        x = object1.translation(args1.translate)
+    if args1.codon_frequency != None:
+        x = object1.codon_frequency(args1.codon_frequency[0])
+    if args1.ORF:
+        x = object1.open_reading_frame()
+
+
+    if x == y:
+        new_seq = ''
+        for i in range(0, len(x.seq), 58):
+            new_seq += (x.seq[i:i + 58] + '\n')
+        if args1.output != None:
+            with open(args1.output[0], 'w') as f1:
+                f1.write(new_seq)
+            return
+        print(new_seq)
+    else:
+        if args1.translate != None:
+            new_seq = ''
+            for i in range(0, len(x), 58):
+                new_seq += (x[i:i + 58] + '\n')
+            if args1.output != None:
+                with open(args1.output[0], 'w') as f1:
+                    f1.write(new_seq)
+                return
+            print(new_seq)
+            return
+
+        if args1.output != None:
+            with open(args1.output[0], 'w') as f1:
+                f1.write(str(x) + "\n")
+            return
+        print(x)
+
+
+if __name__ == "__main__":
+    main()
+
