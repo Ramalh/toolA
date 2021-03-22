@@ -1,7 +1,6 @@
 from nucleotides import *
 import random
 import sys
-import time
 
 def func(seq):
     with open(seq) as file1:
