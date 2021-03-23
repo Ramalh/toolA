@@ -17,7 +17,7 @@ class bio_materials:
     """Biological material analysis"""
     """Sequence should be string type"""
     def __init__(self, seq, data_type):
-        self.seq = seq
+        self.seq = seq.upper()
         self.data_type = data_type
 
         if self.data_type == "DNA":
