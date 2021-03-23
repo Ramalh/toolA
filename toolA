@@ -24,7 +24,7 @@ group2.add_argument('-or', '--ORF', action= 'store_true', help= "Open Reading Fr
 
 ap1.add_argument('-o', '--output',metavar= "", nargs=1, type = str, help= "Name of output file of the result")
 
-ap1.add_argument('-i', '--input', required=True, metavar= "", nargs=1, type = str, required= True, help= "Name of input file of the result")
+ap1.add_argument('-i', '--input', required=True, metavar= "", nargs=1, type = str, help= "Name of input file of the result")
 
 ap1.add_argument('-t', '--biomol_type',metavar= "", nargs=1, type = str, choices=["DNA", "RNA"], required= True, help= "Molecule type of input sequence [DNA or RNA]")
 
