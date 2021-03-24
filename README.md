@@ -1,7 +1,7 @@
 # toolA
 A tool proccesses simple biological data
 
-Before using toolA, make sure "toolA" file is x(executible) permission. To check it write [ls -l] in the directoy where toolA is running. If it is not x mod, change the mod to x with [chmod +x toolA].
+Before using toolA, make sure you have x(executible) permission on toolA file. To check it write [ls -l] in the directoy where toolA is running. If it is not x mod, change the mod to x with [chmod +x toolA].
 
 ToolA is the executible file, and it works in Linux command line and input file is fasta.
 
