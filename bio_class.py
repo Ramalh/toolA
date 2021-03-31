@@ -84,17 +84,6 @@ class bio_materials:
             new_seq += x[i]
         self.seq = new_seq
 
-        # for i in seq:
-        #     if i == "G":
-        #         new_seq += "C"
-        #     if i == "C":
-        #         new_seq += "G"
-        #     if i == "U" or i == "T":
-        #         new_seq += "A"
-        #     if i == "A" and self.data_type == "DNA":
-        #         new_seq += "T"
-        #     if i == "A" and self.data_type == "RNA":
-        #         new_seq += "U"
         return self
 
     def colorize(self):
